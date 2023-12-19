@@ -1,9 +1,11 @@
 # Python Utilities for DocuSign Recipes
 
 # Set encoding to utf8. See http:#stackoverflow.com/a/21190382/64904
+import secrets
+
 import sys; reload(sys); sys.setdefaultencoding('utf8')
 
-import os, base64, string, urllib, random, re, json
+import os, base64, string, urllib, re, json
 from flask import request
 # See http:#requests.readthedocs.org/ for information on the requests library
 # See https:#urllib3.readthedocs.org/en/latest/security.html for info on making secure https calls
@@ -148,9 +150,9 @@ def get_fake_name():
     "Burnham", "Gardner", "Crawford", "Delgado", "Pape", "Bunyard", "Swain",
     "Conaway", "Hetrick", "Lynn", "Petersen"]
 
-    random.seed()
-    first = first_names[random.randint(0, len(first_names) - 1)]
-    last = last_names[random.randint(0, len(last_names) - 1)]
+    secrets.SystemRandom().seed()
+    first = first_names[secrets.SystemRandom().randint(0, len(first_names) - 1)]
+    last = last_names[secrets.SystemRandom().randint(0, len(last_names) - 1)]
     return first + " " + last
 
 ## FIN ##
