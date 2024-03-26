@@ -93,7 +93,7 @@ def logging_updateSettings():
     data = {"apiRequestLogging": "true"}
 
     try:
-        r = requests.put(url, headers=ds_headers, json=data)
+        r = requests.put(url, headers=ds_headers, json=data, timeout=60)
     except requests.exceptions.RequestException as e:
         return {'err': "Error calling RequestLogs:updateSettings " + str(e)}
 
@@ -170,7 +170,7 @@ def logging_do_download():
     ds_headers = {'Accept': 'application/zip', auth["auth_header_key"]: auth["auth_header_value"]}
 
     try:
-        r = requests.get(url, headers=ds_headers, stream=True)
+        r = requests.get(url, headers=ds_headers, stream=True, timeout=60)
     except requests.exceptions.RequestException as e:
         return {'err': "Error calling RequestLogs:request_logs " + str(e)}
 
@@ -190,7 +190,7 @@ def logging_do_download():
     # url = auth["base_url_no_account"] + "/diagnostics/request_logs"
     ds_headers = {'Accept': 'application/json', auth["auth_header_key"]: auth["auth_header_value"]}
     try:
-        r = requests.delete(url, headers=ds_headers)
+        r = requests.delete(url, headers=ds_headers, timeout=60)
     except requests.exceptions.RequestException as e:
         return {'err': "Error calling RequestLogs:delete " + str(e)}
     
