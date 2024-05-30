@@ -1,9 +1,11 @@
 # DocuSign API Send Signing Request from Template via Email Recipe 002 (PYTHON)
 
 # Set encoding to utf8. See http://stackoverflow.com/a/21190382/64904
+from security import safe_requests
+
 import sys; reload(sys); sys.setdefaultencoding('utf8')
 
-import json, socket, certifi, requests, os, base64, re, urllib, shutil
+import requests, urllib
 # See http://requests.readthedocs.org/ for information on the requests library
 # See https://urllib3.readthedocs.org/en/latest/security.html for info on making secure https calls
 # in particular, run pip install certifi periodically to pull in the latest cert bundle
@@ -66,7 +68,7 @@ def send():
     ds_headers = {'Accept': 'application/json', auth["auth_header_key"]: auth["auth_header_value"],
                   trace_key: trace_value}
     try:
-        r = requests.get(url, headers=ds_headers)
+        r = safe_requests.get(url, headers=ds_headers)
     except requests.exceptions.RequestException as e:
         return {'err': "Error calling Templates:list: " + str(e)}
 
@@ -95,7 +97,7 @@ def send():
     ds_headers = {'Accept': 'application/json', auth["auth_header_key"]: auth["auth_header_value"],
                   trace_key: trace_value}
     try:
-        r = requests.get(url, headers=ds_headers)
+        r = safe_requests.get(url, headers=ds_headers)
     except requests.exceptions.RequestException as e:
         return {'err': "Error calling Templates:list: " + str(e)}
 

@@ -2,16 +2,16 @@
 # coding=UTF-8
 
 # Set encoding to utf8. See http://stackoverflow.com/a/21190382/64904 
+from security import safe_requests
+
 import sys; reload(sys); sys.setdefaultencoding('utf8')
 
-import json, socket, certifi, requests, os, base64, re, urllib, shutil, datetime
+import json, requests
 # See http://requests.readthedocs.org/ for information on the requests library
 # See https://urllib3.readthedocs.org/en/latest/security.html for info on making secure https calls
 # in particular, run pip install certifi periodically to pull in the latest cert bundle
 
 from app.lib_master_python import ds_authentication
-from app.lib_master_python import ds_recipe_lib
-from app.lib_master_python import ds_webhook
 from flask import  session
 
 trace_value = "py_007_envelope_recipient_status" # Used for tracing API calls
@@ -54,7 +54,7 @@ def start():
                   trace_key: trace_value}
 
     try:
-        r = requests.get(url, headers=ds_headers)
+        r = safe_requests.get(url, headers=ds_headers)
     except requests.exceptions.RequestException as e:
         return {'err': "Error calling EnvelopeRecipients:list: " + str(e)}
         

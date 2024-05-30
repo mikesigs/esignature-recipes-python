@@ -5,9 +5,11 @@
 #  DS_OAUTH_SECRET
 
 # Set encoding to utf8. See http:#stackoverflow.com/a/21190382/64904 
+from security import safe_requests
+
 import sys; reload(sys); sys.setdefaultencoding('utf8')
 
-import json, certifi, requests, os, base64, math, string, urllib, random, time, datetime, re, hashlib, base64
+import json, requests, os, base64, time, datetime, hashlib, base64
 from flask import request, session
 from app.lib_master_python import ds_recipe_lib
 
@@ -386,7 +388,7 @@ def authentication_login(auth_header_key, auth_header_value):
     err = False
 
     try:
-        r = requests.get(ds_legacy_login_url, headers=ds_headers)
+        r = safe_requests.get(ds_legacy_login_url, headers=ds_headers)
     except requests.exceptions.RequestException as e:
         err = "Error calling DocuSign login: " + str(e)
         return {'err': err}
@@ -590,7 +592,7 @@ def get_oauth_user_info():
     err = False
 
     try:
-        r = requests.get(oauth_userInfo, headers=ds_headers)
+        r = safe_requests.get(oauth_userInfo, headers=ds_headers)
     except requests.exceptions.RequestException as e:
         err = "Error calling DocuSign login: " + str(e)
         return err
