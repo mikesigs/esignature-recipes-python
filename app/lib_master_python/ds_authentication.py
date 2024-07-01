@@ -165,7 +165,7 @@ def token_refresh(auth):
     try:
         r = requests.post(oauth_token,
                 headers={'Authorization': "Basic " + client_secret_b64},
-                data={'grant_type': 'refresh_token', 'refresh_token': auth["refresh_token"]})
+                data={'grant_type': 'refresh_token', 'refresh_token': auth["refresh_token"]}, timeout=60)
     except requests.exceptions.RequestException as e:
         err = "Error calling DocuSign for OAuth token refresh: " + str(e)
         ds_recipe_lib.log(err)
@@ -386,7 +386,7 @@ def authentication_login(auth_header_key, auth_header_value):
     err = False
 
     try:
-        r = requests.get(ds_legacy_login_url, headers=ds_headers)
+        r = requests.get(ds_legacy_login_url, headers=ds_headers, timeout=60)
     except requests.exceptions.RequestException as e:
         err = "Error calling DocuSign login: " + str(e)
         return {'err': err}
@@ -545,7 +545,7 @@ def oauth_token_for_code(auth, code):
     try:
         r = requests.post(oauth_token,
                 headers={'Authorization': "Basic " + client_secret_b64},
-                data={'grant_type': 'authorization_code', 'code': code})
+                data={'grant_type': 'authorization_code', 'code': code}, timeout=60)
     except requests.exceptions.RequestException as e:
         err = "Error calling DocuSign for OAuth token: " + str(e)
         return err
@@ -590,7 +590,7 @@ def get_oauth_user_info():
     err = False
 
     try:
-        r = requests.get(oauth_userInfo, headers=ds_headers)
+        r = requests.get(oauth_userInfo, headers=ds_headers, timeout=60)
     except requests.exceptions.RequestException as e:
         err = "Error calling DocuSign login: " + str(e)
         return err
