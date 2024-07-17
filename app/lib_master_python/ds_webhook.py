@@ -242,9 +242,8 @@ def status_items(envelope_id):
 
 def status_item(filepath, filename, files_dir_url):
     """summary information about the notification"""
-    
-    f = open(filepath)
-    data = f.read()
+    with open(filepath) as f:
+        data = f.read()
 
     # Note, there are many options for parsing XML in Python
     # For this recipe, we're using Beautiful Soup, http://www.crummy.com/software/BeautifulSoup/
