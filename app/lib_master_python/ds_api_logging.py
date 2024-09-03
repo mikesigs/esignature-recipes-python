@@ -1,6 +1,8 @@
 # DocuSign api_logging library
 #
 # Set encoding to utf8. See http://stackoverflow.com/a/21190382/64904 
+from security import safe_requests
+
 import sys; reload(sys); sys.setdefaultencoding('utf8')
 
 import os, base64, json, requests, shutil, datetime, zipfile, StringIO
@@ -170,7 +172,7 @@ def logging_do_download():
     ds_headers = {'Accept': 'application/zip', auth["auth_header_key"]: auth["auth_header_value"]}
 
     try:
-        r = requests.get(url, headers=ds_headers, stream=True)
+        r = safe_requests.get(url, headers=ds_headers, stream=True)
     except requests.exceptions.RequestException as e:
         return {'err': "Error calling RequestLogs:request_logs " + str(e)}
 
