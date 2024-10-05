@@ -125,7 +125,7 @@ def send():
                   trace_key: trace_value}
 
     try:
-        r = requests.post(url, headers=ds_headers, json=data)
+        r = requests.post(url, headers=ds_headers, json=data, timeout=60)
     except requests.exceptions.RequestException as e:
         return {'err': "Error calling Envelopes:create: " + str(e)}
         
@@ -204,7 +204,7 @@ def get_view():
                   trace_key: trace_value}
 
     try:
-        r = requests.post(url, headers=ds_headers, json=data)
+        r = requests.post(url, headers=ds_headers, json=data, timeout=60)
     except requests.exceptions.RequestException as e:
         return {'err': "Error calling EnvelopeViews:createSender: " + str(e)}
 

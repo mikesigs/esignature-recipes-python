@@ -63,7 +63,7 @@ def start():
                   trace_key: trace_value}
 
     try:
-        r = requests.get(url, headers=ds_headers)
+        r = requests.get(url, headers=ds_headers, timeout=60)
     except requests.exceptions.RequestException as e:
         return {'err': "Error calling Envelopes:listStatusChanges: " + str(e)}
         
