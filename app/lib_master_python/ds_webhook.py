@@ -206,7 +206,7 @@ def status_page(envelope_id):
     ds_headers = {'Accept': 'application/json', auth["auth_header_key"]: auth["auth_header_value"],
         trace_key: trace_value}
     try:
-        r = requests.get(url, headers=ds_headers)
+        r = requests.get(url, headers=ds_headers, timeout=60)
     except requests.exceptions.RequestException as e:
         return {'err': "Error calling Templates:list: " + str(e)}
 
