@@ -2,6 +2,8 @@
 # coding=UTF-8
 
 # Set encoding to utf8. See http://stackoverflow.com/a/21190382/64904 
+from security import safe_requests
+
 import sys; reload(sys); sys.setdefaultencoding('utf8')
 
 import json, socket, certifi, requests, os, base64, re, urllib, shutil, datetime
@@ -63,7 +65,7 @@ def start():
                   trace_key: trace_value}
 
     try:
-        r = requests.get(url, headers=ds_headers)
+        r = safe_requests.get(url, headers=ds_headers)
     except requests.exceptions.RequestException as e:
         return {'err': "Error calling Envelopes:listStatusChanges: " + str(e)}
         
